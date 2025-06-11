@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Web Server</title>
+    <style>
+        html {
+            --primary-color: #FFF0D1;
+            --secondary-color: #795757;
+            --teritary-color: #664343;
+            --accent-color: #3b3030;
+        }
+        body {
+          font-family: monospace;
+          padding: 2rem;
+          background-color: var(--primary-color);
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .square-one {
+            background-color: var(--secondary-color);
+            height: 5vh;
+        }
+        .square-two {
+            background-color: var(--teritary-color);
+            height: 5vh;
+        }
+
+        .square-three {
+            background-color: var(--accent-color);
+            height: 5vh;
+        }
+
+        .control-panel{
+            display: flex;
+            gap: 10em;
+            margin: 3em;
+        }
+
+        .status-panel {
+            background-color: var(--secondary-color);
+            min-height: 10vh;
+        }
+
+        .coffee-button {
+            width: 50%;
+            border-radius: 1.5em;
+            border-color: white;
+            border: none;
+            padding: 0.5em;
+            background-color: #795757;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Eric's Coffee Maker</h1>
+            <div class="status-panel">
+                <p> Status:</p>
+            </div>
+        <div class="control-panel">
+                <button class="coffee-button">Brew </button>
+                <button class="coffee-button">Stop </button>
+                <button class="coffee-button">Schedule </button>
+        </div>
+
+    <div class="square-one">
+            test
+    </div>
+    <div class="square-two">
+            test
+    </div>
+    <div class="square-three">
+            test
+    </div>
+    </div>
+</body>
+</html>
+
