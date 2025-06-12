@@ -14,7 +14,7 @@
         body {
           font-family: monospace;
           padding: 2rem;
-          background-color: var(--primary-color);
+          background-color: var(--accent-color);
         }
 
         .content {
@@ -41,11 +41,18 @@
             display: flex;
             gap: 10em;
             margin: 3em;
+            background-color: var(--secondary-color);
         }
 
-        .status-panel {
-            background-color: var(--secondary-color);
-            min-height: 10vh;
+        .info-panel {
+            background-color: var(--primary-color);
+            min-height: 25vh;
+            min-width: 50vw;
+        }
+
+        .status {
+            font-size: 2em;
+            color: var(--accent-color);
         }
 
         .coffee-button {
@@ -54,33 +61,85 @@
             border-color: white;
             border: none;
             padding: 0.5em;
-            background-color: #795757;
+            background-color: var(--teritary-color);
 
         }
     </style>
+
+    <script type="text/javascript">
+        console.log("Hello coffee!");
+        let globalBrewTime = 120;
+
+        function initCoffeeBrewTime(totalSecs) {
+            setBrewTimeText(totalSecs);
+        }
+
+        function setBrewTimeText(totalBrew) {
+            const brewTime = getCoffeeBrewTime();
+            const times = calculateTime(totalBrew)
+            const initString = `Time Remaining: ${timeToString(times)}`;
+            if (brewTime === undefined) {
+                return;
+            }
+            brewTime.innerText = initString;
+        }
+
+        function calculateTime(totalSecs) {
+            console.log(totalSecs);
+            const minutes = totalSecs / 60;
+            const seconds = totalSecs % 60;
+            return [minutes, seconds]
+        }
+
+        function timeToString(times) {
+            let mins = times[0].toString();
+            let secs = times[1] < 10 ? `0${times[1]}` : times[1].toString();
+            return `${mins}:${secs}`;
+        }
+
+        function updateCoffeeBrewTime(currBrewTime) {
+            console.log(currBrewTime);
+            if (currBrewTime <= 0) {
+                initCoffeeBrewTime(120);
+            } else {
+                setBrewTimeText(--currBrewTime);
+            }
+        }
+
+        function getCoffeeBrewTime() {
+            const brewTime = document.getElementById("brew-time-remain");
+            if (brewTime == undefined) {
+                console.error("No brew time element found :\( ");
+                return undefined;
+            }
+            return brewTime;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("test");
+            initCoffeeBrewTime(globalBrewTime);
+            setInterval(updateCoffeeBrewTime, 1000, globalBrewTime);
+        });
+
+    </script>
+
 </head>
 <body>
     <div class="content">
         <h1>Eric's Coffee Maker</h1>
-            <div class="status-panel">
-                <p> Status:</p>
+            <div class="info-panel">
+                <div class="status">
+                    <p> Status: Brewing</p>
+                    <p id="brew-time-remain"></p>
+                </div>
             </div>
         <div class="control-panel">
                 <button class="coffee-button">Brew </button>
                 <button class="coffee-button">Stop </button>
                 <button class="coffee-button">Schedule </button>
         </div>
-
-    <div class="square-one">
-            test
-    </div>
-    <div class="square-two">
-            test
-    </div>
-    <div class="square-three">
-            test
-    </div>
     </div>
 </body>
 </html>
+
 
