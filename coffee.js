@@ -7,6 +7,7 @@ var intervalId = 0;
 const MORNING = 0;
 const AFTERNOON = 1;
 const EVENING = 2;
+const NIGHT = 3;
 
 function initCoffeeBrewTime(totalSecs) {
     setBrewTimeText(totalSecs);
@@ -78,7 +79,7 @@ function getTimeOfYear(months) {
         return "\u{1F337}";
     }
     else if (months >= 6 && months < 9) {
-        return "\u{2600}\u{FE0F}";
+        return "\u{1F3D6}\u{FE0F}";
     }
     else if (months >= 9 && months < 12){
         return "\u{1F342}";
@@ -97,6 +98,8 @@ function timeOfDayToString(timeOfDay)
             return "\u{1F31E}";
         case EVENING:
             return "\u{1F307}";
+        case NIGHT:
+            return "\u{1F319}";
     }
 }
 
@@ -105,8 +108,10 @@ function getTimeOfDay(hours) {
         return MORNING;
     } else if (hours > 12 && hours < 19) {
         return AFTERNOON;
-    } else {
+    } else if (hours < 21){
         return EVENING;
+    } else {
+        return NIGHT;
     }
 }
 
