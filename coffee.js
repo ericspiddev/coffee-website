@@ -15,8 +15,7 @@ function setBrewTimeText(totalBrew) {
 }
 
 function calculateTime(totalSecs) {
-    console.log(totalSecs);
-    const minutes = totalSecs / 60;
+    const minutes = Math.floor(totalSecs / 60); // Need to floor bc JS loves turning stuff to floats
     const seconds = totalSecs % 60;
     return [minutes, seconds]
 }

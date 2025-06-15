@@ -4,6 +4,7 @@ html {
     --teritary-color: #664343;
     --accent-color: #3b3030;
 }
+
 body {
   font-family: monospace;
   padding: 2rem;
@@ -16,44 +17,41 @@ body {
     align-items: center;
 }
 
-.square-one {
-    background-color: var(--secondary-color);
-    height: 5vh;
-}
-.square-two {
-    background-color: var(--teritary-color);
-    height: 5vh;
+.coffee-header {
+    color: white;
+    font-size: 2rem;
 }
 
-.square-three {
-    background-color: var(--accent-color);
-    height: 5vh;
-}
-
-.control-panel{
+.control-panel {
     display: flex;
     gap: 10em;
     margin: 3em;
-    background-color: var(--secondary-color);
+    padding: 1.5em;
+    background-color: var(--primary-color);
+}
+
+.info-section {
+    font-size: 1.25em;
+    padding: 3em;
+    display: flex;
+    gap: 10em;
 }
 
 .info-panel {
     background-color: var(--primary-color);
-    min-height: 25vh;
-    min-width: 50vw;
-}
-
-.status {
     font-size: 2em;
+    padding: 2em;
     color: var(--accent-color);
 }
 
 .coffee-button {
-    width: 50%;
-    border-radius: 1.5em;
+    border-radius: 1em;
+    min-width: 10em;
+    padding: 1.25em;
+    font-size: 1.25rem;
     border-color: white;
+    color: white;
+    font-family: monospace;
     border: none;
-    padding: 0.5em;
-    background-color: var(--teritary-color);
-
+    background-color: #ECB176;
 }
