@@ -1,4 +1,12 @@
-let globalBrewTime = 120;
+
+var globalBrewTime = 120;
+var currentMinutes = new Date().getMinutes();
+var currentDay = new Date().getDate();
+var intervalId = 0;
+
+const MORNING = 0;
+const AFTERNOON = 1;
+const EVENING = 2;
 
 function initCoffeeBrewTime(totalSecs) {
     setBrewTimeText(totalSecs);
@@ -26,13 +34,103 @@ function timeToString(times) {
     return `${mins}:${secs}`;
 }
 
-function updateCoffeeBrewTime(currBrewTime) {
-    console.log(currBrewTime);
-    if (currBrewTime <= 0) {
-        initCoffeeBrewTime(120);
-    } else {
-        setBrewTimeText(--currBrewTime);
+function resetBrewTime() {
+    globalBrewTime = 120;
+    setStatus("Ready");
+    if (intervalId != 0) {
+        clearInterval(intervalId);
     }
+
+}
+
+function updateCoffeeBrewTime() {
+    if (globalBrewTime < 0) {
+        resetBrewTime();
+    } else {
+        setBrewTimeText(globalBrewTime--);
+    }
+}
+
+function refreshDateTime() {
+    let date = new Date();
+    let mins = date.getMinutes();
+    let timeField = document.getElementById("time-field");
+    if (mins != currentMinutes || timeField.innerText === '') {
+        let hours = date.getHours();
+        let timeOfDay = getTimeOfDay(hours);
+        let amOrPm = hours < 12 ? "AM" : "PM"
+        hours = hours % 12 == 0 ? hours : hours % 12;
+        timeField.innerText =`Time: ${hours}:${mins}${amOrPm} ${timeOfDayToString(timeOfDay)}`;
+    }
+
+    let dateField = document.getElementById("date-field");
+    let days = date.getDate();
+    if (days != currentDay || dateField.innerText === '') {
+        let months = date.getMonth() + 1;
+        let year = date.getFullYear();
+        let timeOfYear = getTimeOfYear(months);
+        dateField.innerText = `Date: ${months}/${days}/${year} ${timeOfYear}`
+    }
+}
+
+function getTimeOfYear(months) {
+    if (months > 2 && months < 6) {
+        return "\u{1F337}";
+    }
+    else if (months >= 6 && months < 9) {
+        return "\u{2600}\u{FE0F}";
+    }
+    else if (months >= 9 && months < 12){
+        return "\u{1F342}";
+    }
+    else {
+        return "\u{2744}\u{FE0F}";
+    }
+}
+
+function timeOfDayToString(timeOfDay)
+{
+    switch (timeOfDay) {
+        case MORNING:
+            return "\u{1F304}";
+        case AFTERNOON:
+            return "\u{1F31E}";
+        case EVENING:
+            return "\u{1F307}";
+    }
+}
+
+function getTimeOfDay(hours) {
+    if (hours <= 12) {
+        return MORNING;
+    } else if (hours > 12 && hours < 19) {
+        return AFTERNOON;
+    } else {
+        return EVENING;
+    }
+}
+
+function setStatus(status) {
+    let statusField = document.getElementById('status-field');
+    statusField.innerText = `Status: ${status} ${getStatusEmoji(status)}`
+}
+
+function getStatusEmoji(status) {
+    if (status == "Ready") {
+        return "\u{1F7E2}";
+    } else if (status == "Brewing") {
+        return "\u{2615}";
+    } else {
+        return "\u{1F534}";
+    }
+}
+
+function getDateTimeString(date)
+{
+    let minutes = date.getMinutes();
+    let hour = date.getHours();
+    let timeOfDay = getTimeOfDay(hour);
+    let amOrPm = (hour >= 12) ? "PM" : "AM"
 }
 
 function getCoffeeBrewTime() {
@@ -44,8 +142,17 @@ function getCoffeeBrewTime() {
     return brewTime;
 }
 
+function brewHandler() {
+    setStatus("Brewing");
+    updateCoffeeBrewTime();
+    intervalId = setInterval(updateCoffeeBrewTime, 1000);
+}
+
 document.addEventListener("DOMContentLoaded", function() {
-    console.log("test");
     initCoffeeBrewTime(globalBrewTime);
-    setInterval(updateCoffeeBrewTime, 1000, globalBrewTime);
+    refreshDateTime();
+    setStatus("Ready")
+    document.getElementById("brew-button").onclick = brewHandler;
+    document.getElementById("stop-brew-button").onclick = resetBrewTime;
+    setInterval(refreshDateTime, 1000, globalBrewTime);
 });
