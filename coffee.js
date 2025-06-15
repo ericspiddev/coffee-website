@@ -41,6 +41,7 @@ function resetBrewTime() {
     if (intervalId != 0) {
         clearInterval(intervalId);
     }
+    initCoffeeBrewTime(globalBrewTime);
 
 }
 
