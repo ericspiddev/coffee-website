@@ -149,10 +149,32 @@ function getCoffeeBrewTime() {
     return brewTime;
 }
 
-function brewHandler() {
-    setStatus("Brewing");
-    updateCoffeeBrewTime();
-    intervalId = setInterval(updateCoffeeBrewTime, 1000);
+async function brewHandler() {
+    let res = await makeBrewRequest();
+    console.log("res is " + res);
+    if (res) {
+        setStatus("Brewing");
+        updateCoffeeBrewTime();
+        intervalId = setInterval(updateCoffeeBrewTime, 1000);
+    } else {
+        console.error("Brew request to coffee maker failed");
+    }
+}
+
+async function makeBrewRequest()
+{
+    let brewUrl = "/brew";
+    let response = await fetch(brewUrl);
+
+    if (!response.ok) {
+        console.error("Failed to fetch brew");
+        return false;
+    }
+
+    const json = await response.json();
+    console.log(json);
+    return true;
+
 }
 
 document.addEventListener("DOMContentLoaded", function() {
