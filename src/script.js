@@ -62,7 +62,8 @@ function refreshDateTime() {
         let timeOfDay = getTimeOfDay(hours);
         let amOrPm = hours < 12 ? "AM" : "PM"
         hours = hours % 12 == 0 ? hours : hours % 12;
-        timeField.innerText =`Time: ${hours}:${mins}${amOrPm} ${timeOfDayToString(timeOfDay)}`;
+        minString = mins < 10 ? `0${mins}` : `${mins}`; // pad time with leading 0 if less then 10
+        timeField.innerText =`Time: ${hours}:${minString}${amOrPm} ${timeOfDayToString(timeOfDay)}`;
     }
 
     let dateField = document.getElementById("date-field");
