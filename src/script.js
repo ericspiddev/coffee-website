@@ -1,16 +1,26 @@
-
-var globalBrewTime = 120;
 var currentMinutes = new Date().getMinutes();
 var currentDay = new Date().getDate();
 var intervalId = 0;
+let globalBrewTime = 0;
+let globalFullBrewTime = 0;
 
 const MORNING = 0;
 const AFTERNOON = 1;
 const EVENING = 2;
 const NIGHT = 3;
 
-function initCoffeeBrewTime(totalSecs) {
-    setBrewTimeText(totalSecs);
+function initCoffeeBrewTime() {
+   setBrewTimeBasedOnSelect();
+}
+
+function setBrewTimeBasedOnSelect() {
+    let brewTimer = document.getElementById("brew-time-selector");
+    if ( brewTimer!== undefined) {
+        let brewSeconds = brewTimer.value * 60;
+        setBrewTimeText(brewSeconds);
+        globalBrewTime = brewSeconds;
+        globalFullBrewTime = brewSeconds;
+    }
 }
 
 function setBrewTimeText(totalBrew) {
@@ -191,6 +201,7 @@ async function makeBrewRequest()
 
 document.addEventListener("DOMContentLoaded", function() {
     initCoffeeBrewTime(globalBrewTime);
+    document.getElementById("brew-time-selector").onchange = setBrewTimeBasedOnSelect;
     refreshDateTime();
     setStatus("Ready")
     document.getElementById("brew-button").onclick = brewHandler;
