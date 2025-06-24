@@ -186,10 +186,16 @@ async function brewHandler() {
 async function makeBrewRequest()
 {
     let brewUrl = "/brew";
-    let response = await fetch(brewUrl);
+    let response = await fetch(brewUrl, {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        },
+        body: JSON.stringify({brewTimeSeconds: globalBrewTime})
+    });
 
     if (!response.ok) {
-        console.error("Failed to fetch brew");
+        console.error("Failed to post brewtime for coffee maker");
         return false;
     }
 
