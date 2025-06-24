@@ -40,8 +40,58 @@ body {
 .info-panel {
     background-color: var(--primary-color);
     font-size: 2em;
-    padding: 2em;
+    padding: 3em;
     color: var(--accent-color);
+}
+
+#brew-progress-bar {
+    position: relative;
+    width: 100%;
+    min-height: 10%;
+    text-align: center;
+    color: white;
+    border-radius: 2em;
+    padding: 0.25em;
+    padding-right: 0.25em;
+    padding-left: 0.25em;
+    background-color: #ECB176;
+    overflow: hidden;
+}
+
+#brew-percentage{
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    font-size: 1.5rem;
+    transform: translate(-50%, -50%);
+}
+
+#brew-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    width: 0%;
+    color: white;
+    border-radius: 2em;
+    transition: width 0.3s ease;
+    background-color: var(--accent-color);
+}
+
+.coffee-brew-duration {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.coffee-selector {
+    border-radius: 1em;
+    border: none;
+    color:#fff0d1;
+    font-size: 1.2rem;
+    padding: 0.5em;
+    background-color: #ECB176;
+    font-family: monospace;
 }
 
 .coffee-button {
