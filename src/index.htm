@@ -15,7 +15,21 @@
                 <div class="info-panel status">
                     <p id="status-field"></p>
                     <p id="brew-time-remain"></p>
-                    <p> Water Level: 100%</p>
+                    <div class="coffee-brew-duration">
+                        <p> Brew Duration: </p>
+                        <select id="brew-time-selector" class="coffee-selector">
+                            <option value="1"> 1 Minutes </option>
+                            <option value="5"> 5 Minutes </option>
+                            <option value="10"> 10 Minutes </option>
+                            <option value="15"> 15 Minutes </option>
+                            <option value="20"> 20 Minutes </option>
+                            <option value="30"> 30 Minutes </option>
+                        </select>
+                    </div>
+                    <div id="brew-progress-bar">
+                        <p id="brew-percentage">0%</p>
+                        <div id="brew-progress">&nbsp;</div>
+                    </div>
                 </div>
                 <div class="info-panel date">
                     <p id="date-field"></p>
@@ -25,7 +39,6 @@
         <div class="control-panel">
                 <button class="coffee-button" id="brew-button">Brew </button>
                 <button class="coffee-button" id="stop-brew-button">Stop </button>
-                <button class="coffee-button">Schedule </button>
         </div>
     </div>
 </body>

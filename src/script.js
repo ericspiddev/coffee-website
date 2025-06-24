@@ -36,8 +36,9 @@ function timeToString(times) {
 }
 
 function resetBrewTime() {
-    globalBrewTime = 120;
     setStatus("Ready");
+    document.getElementById("brew-percentage").innerText = "0%";
+    document.getElementById("brew-progress").style.width = "0%";
     if (intervalId != 0) {
         clearInterval(intervalId);
     }
@@ -50,7 +51,18 @@ function updateCoffeeBrewTime() {
         resetBrewTime();
     } else {
         setBrewTimeText(globalBrewTime--);
+        updateBrewPercent(globalBrewTime);
     }
+}
+
+function updateBrewPercent(currBrewTime)
+{
+    let percent = (globalBrewTime / globalFullBrewTime) * 100;
+    const progressBar = document.getElementById("brew-progress");
+    const percentString = document.getElementById("brew-percentage");
+    let width = 100 - percent > 100 ? 100 : 100 - percent;
+    percentString.innerText = `${Math.floor(width)}%`
+    progressBar.style.width = `${width}%`;
 }
 
 function refreshDateTime() {
