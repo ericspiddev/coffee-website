@@ -135,6 +135,10 @@ function resetBrewTime() {
     } catch(error) {
         logError("Error resetting brew progress", error);
     }
+    setStatus("Ready");
+    fetch('stop-brew');
+    document.getElementById("brew-percentage").innerText = "0%";
+    document.getElementById("brew-progress").style.width = "0%";
     if (intervalId != 0) {
         clearInterval(intervalId);
     }
