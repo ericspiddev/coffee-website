@@ -312,6 +312,35 @@ function coffeeStartup() {
     refreshDateTime();
     setStatus(BrewStatus.READY);
     setInterval(refreshDateTime, BREWTIME_INTERVAL, globalBrewTime);
+    fetchLatestHeadlines();
+
+}
+
+function fetchLatestHeadlines() {
+    var url = 'https://newsapi.org/v2/top-headlines?' +
+              'country=us&' +
+              'sortBy=popularity&' +
+              'apiKey=57762188e01945f7939f925747484321';
+
+    let headlineFieldId= "headlines-field";
+    let headLineField = safelyGetElementById(headlineFieldId);
+    var req = new Request(url);
+    let fetchedArticles = fetch(req).then(function(response){return response.json()});
+    fetchedArticles.then(function(result) {
+        if (result.status == "ok") {
+            for(let i = 0; i < result.articles.length; i++) {
+                let articleNode = document.createElement("p");
+                articleNode.classList.add("headlines");
+                let article = result.articles[i];
+                articleNode.innerText = article.title;
+                headLineField.append(articleNode);
+                console.log(result.articles[i].title);
+                console.log(result.articles[i]);
+            }
+        } else {
+            console.error("Failed to get latest news headlines :(");
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function() {
